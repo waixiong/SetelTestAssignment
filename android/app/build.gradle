@@ -49,13 +49,13 @@ android {
         release {
             keyAlias 'client'
             keyPassword 'password'
-            storeFile file('../../Keys/keystore')
+            storeFile file('../../Keys/keystore.jks')
             storePassword 'password'
         }
         debug {
             keyAlias 'client'
             keyPassword 'password'
-            storeFile file('../../Keys/keystore')
+            storeFile file('../../Keys/keystore.jks')
             storePassword 'password'
         }
     }
