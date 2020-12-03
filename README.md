@@ -8,7 +8,7 @@ A new Flutter project for Setel Assignment.
 ## Compile 
 #### Android
 - Put your keystore.jks in `./Keys`
-- Change `./android/app/build.gradle` based on your keystore
+- Change `./android/app/key.properties` based on your keystore
 - Change `com.google.android.geo.API_KEY` in `./android/app/src/main/AndroidManifest.xml` coresponding to your keystore
 
 ## Run
