@@ -34,7 +34,8 @@ dependencies:
   stacked_themes: ^0.1.0
   logger: ^0.8.2
   get_it: ^4.0.2
-
+  
+  permission_handler: ^5.0.1+1
   google_maps_flutter: ^1.0.6
   # geolocator: ^6.1.9
   location: ^3.1.0

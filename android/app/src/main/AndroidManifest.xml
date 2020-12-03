@@ -46,4 +46,12 @@
         <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyDzjQPy_-ngiye2auET6MUks2-jD8wIVXo"/>
     </application>
+
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-feature android:name="android.hardware.wifi" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

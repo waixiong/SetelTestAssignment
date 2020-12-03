@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:Setel_Test_Assignment/logger.dart';
 import 'package:flutter/foundation.dart';
 import 'package:location/location.dart';
+import 'package:permission_handler/permission_handler.dart' as PermissionHandler;
 
 class LocationService extends ChangeNotifier {
   Location _geolocator;
@@ -19,6 +20,7 @@ class LocationService extends ChangeNotifier {
 
   LocationService() {
     _geolocator = Location.instance;
+    _geolocator.changeSettings(accuracy: LocationAccuracy.high);
     _init();
   }
   
@@ -29,6 +31,9 @@ class LocationService extends ChangeNotifier {
     log.i('Permission: $_permissionStatus');
     if(_permissionStatus) {
       _enable = await _geolocator.serviceEnabled();
+      if(!_enable) {
+        _enable = await _geolocator.requestService();
+      }
       log.i('Enabled: $_enable');
       _locationStreamSub = _geolocator.onLocationChanged.listen((event) async {
         // log.i('(onLocationChanged) $event');
@@ -51,12 +56,13 @@ class LocationService extends ChangeNotifier {
   Stream<LocationData> get positionStream => _geolocator.onLocationChanged;
 
   Future<bool> requestPermision() async {
-    var permission = await _geolocator.hasPermission();
+    var permission = await PermissionHandler.Permission.locationAlways.status;//await _geolocator.hasPermission();
     if(permission != PermissionStatus.granted && permission != PermissionStatus.grantedLimited) {
-      permission = await _geolocator.requestPermission();
+      // permission = await _geolocator.requestPermission();
+      permission = await PermissionHandler.Permission.locationAlways.request();
     }
     log.i(permission);
-    _permissionStatus = (permission == PermissionStatus.granted || permission == PermissionStatus.grantedLimited);
+    _permissionStatus = (permission == PermissionHandler.PermissionStatus.granted);
     return _permissionStatus;
   }
 
@@ -73,7 +79,7 @@ class LocationService extends ChangeNotifier {
             math.cos(to.latitude * p) *
             (1 - math.cos((to.longitude - from.longitude) * p)) /
             2;
-    double distance = 12742 * math.asin(math.sqrt(a));
+    double distance = 12742000 * math.asin(math.sqrt(a));
     return distance;
   }
 

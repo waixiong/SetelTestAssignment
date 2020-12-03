@@ -23,20 +23,19 @@ class GeofencingPageViewModel extends BaseViewModel {
   double get distance => _geofencingService.distance;
   bool get inArea => _geofencingService.inArea;
 
-  Future<void> quitGeofence() async {
+  Future<bool> quitGeofence() async {
     var response = await locator<DialogService>().showConfirmationDialog(
       title: 'Quit Program',
       confirmationTitle: 'Quit',
       description: 'Are you sure you wanna quit?'
     );
-    if(response.confirmed) {
-      locator<NavigationService>().popRepeated(1);
-    }
+    return response.confirmed;
   }
 
   @override
   void dispose() {
     _geofencingService.removeListener(notifyListeners);
+    _geofencingService.dispose();
     super.dispose();
   }
 }

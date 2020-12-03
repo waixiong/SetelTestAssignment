@@ -16,33 +16,41 @@ class GeofencingPage extends StatelessWidget {
     return ViewModelBuilder<GeofencingPageViewModel>.reactive(
       viewModelBuilder: () => GeofencingPageViewModel(centerPoint, radius, ssid),
       builder: (context, model, _) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(model.inArea? 'Inside':'Outside'),
-            backgroundColor: model.inArea? Colors.green : Colors.red,
-          ),
-          body: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
-                child: ConfigCard('Connected Wi-Fi', model.ssid, trailingWidget: Icon(Icons.wifi),),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
-                child: Row(
-                  children: [
-                    Expanded(child: ConfigCard(
-                      'Location', 
-                      model.location != null
-                          ? '${model.location.latitude}, ${model.location.longitude}'
-                          : 'Unknown location',
-                    )),
-                    SizedBox(width: 8,),
-                    Expanded(child: ConfigCard('Distance', model.distance.toStringAsFixed(2)+' meters',)),
-                  ],
+        return WillPopScope(
+          onWillPop: model.quitGeofence,
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text(model.inArea? 'Inside':'Outside'),
+              backgroundColor: model.inArea? Colors.green : Colors.red,
+            ),
+            body: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
+                  child: ConfigCard(
+                    'Connected Wi-Fi', model.ssid != null
+                        ? model.ssid
+                        : 'No Wi-Fi', 
+                    trailingWidget: Icon(Icons.wifi),
+                  ),
                 ),
-              )
-            ],
+                Padding(
+                  padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
+                  child: Row(
+                    children: [
+                      Expanded(child: ConfigCard(
+                        'Location', 
+                        model.location != null
+                            ? '${model.location.latitude}, ${model.location.longitude}'
+                            : 'Unknown location',
+                      )),
+                      SizedBox(width: 8,),
+                      Expanded(child: ConfigCard('Distance', model.distance.toStringAsFixed(2)+' meters',)),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         );
       },

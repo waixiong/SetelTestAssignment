@@ -3,6 +3,7 @@ import 'package:Setel_Test_Assignment/logger.dart';
 import 'package:flutter/foundation.dart';
 import 'package:wifi/wifi.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ConnectionService extends ChangeNotifier {
   String _currentSSID;
@@ -20,7 +21,11 @@ class ConnectionService extends ChangeNotifier {
 
   Future<void> init() async {
     log.i('init');
+    var permission = await Permission.location.request();
+    log.i("Permission: $permission");
     _currentSSID = await Wifi.ssid;
+    log.i("Wifi: $_currentSSID");
+    _currentSSID = _currentSSID == '<unknown ssid>'? null : _currentSSID;
     _ssidStreamController.add(_currentSSID);
     _subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) async {
       if(result == ConnectivityResult.wifi) {
