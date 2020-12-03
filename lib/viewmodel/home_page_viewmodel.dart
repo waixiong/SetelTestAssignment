@@ -43,7 +43,7 @@ class HomePageViewModel extends BaseViewModel {
   }
 
   Future<void> changeWifi() async {
-    locator<SnackbarService>().showSnackbar(message: 'Not Ready Yet');
+    locator<SnackbarService>().showSnackbar(message: 'Change your Wi-Fi through setting');
     // locator<NavigationService>().navigateTo(RouteName.wifi);
   }
 

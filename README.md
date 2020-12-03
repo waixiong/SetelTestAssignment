@@ -1,19 +1,17 @@
 # Setel_Test_Assignment
 
-A new Flutter project.
+A new Flutter project for Setel Assignment.
 
 `Flutter 1.22.1`
 `Android SDK 29.0.3`
 
-## Getting Started
+## Compile 
+#### Android
+- Put your keystore.jks in `./Keys`
+- Change `./android/app/build.gradle` based on your keystore
+- Change `com.google.android.geo.API_KEY` in `./android/app/src/main/AndroidManifest.xml` coresponding to your keystore
 
-This project is a starting point for a Flutter application.
+## Run
 
-A few resources to get you started if this is your first Flutter project:
+The app is tested on `Oppo A37f (Android 5.1.1)` and `Google Pixel 2 (Android 11)`
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

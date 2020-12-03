@@ -29,6 +29,10 @@ class GoogleMapPage extends StatelessWidget {
                 )
               ],
             ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: model.getCurrentPosition,
+              child: Icon(Icons.my_location),
+            ),
             body: Stack(
               children: <Widget>[
                 model.position == null

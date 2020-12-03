@@ -47,16 +47,18 @@ class GoogleMapModel extends BaseViewModel {
     _allMarkers.add(
       Marker(
         markerId: MarkerId('SetPosition'),
-        position: position2LatLng(position),
+        position: position2LatLng(_position),
         onTap: () {
           _mapController
-              .animateCamera(CameraUpdate.newLatLngZoom(position2LatLng(position), 17.0));
+              .animateCamera(CameraUpdate.newLatLngZoom(position2LatLng(_position), 17.0));
         },
         draggable: true,
         onDragEnd: (latlng) => _setCurrentPosition(latlng2Position(latlng))
       ),
     );
     setBusy(false);
+
+    locator<SnackbarService>().showSnackbar(message: 'Center point is re-center to your location');
 
     notifyListeners();
   }
